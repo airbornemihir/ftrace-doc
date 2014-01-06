@@ -26,7 +26,7 @@
   Overview of the material.
   \begin{enumerate}
   \item Introduction to ftrace
-  \item Primer: filesystems and debugfs
+  \item Filesystems and debugfs
   \item ftrace functionality
   \item Example
   \end{enumerate}
@@ -35,7 +35,7 @@
 \begin{frame}{Introduction to ftrace}
   What is ftrace anyway?
   \begin{itemize}
-  \item Started out as a function tracer.
+  \item Most commonly known as the function tracer.
   \item Idea: save timing information for the execution of kernel
     functions and export the information to userspace.
   \item Utility: This is useful to kernel developers who need to keep
@@ -44,6 +44,46 @@
     info.
   \item Output: variety of formats, including human readable output -
     immensely useful for embedded developers (that means us!)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Filesystems and debugfs - introduction}
+  \begin{itemize}
+  \item Linux - several different filesystems, intended for different
+    purposes.
+  \item Common features - encapsulated in the VFS (Virtual
+    Filesystem Switch).
+  \item This allows most filesystems to be mounted using the mount
+    command.
+  \item Our focus: debugfs.
+  \item Like sysfs and procfs - intended to allow kernel developers
+    to export information to userspace and get control
+    instructions from userspace.
+  \item Different from sysfs and procfs - both of these have
+    specific purposes and their indiscriminate use for debugging is
+    discouraged. Not so for debugfs.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Filesystems and debugfs - using debugfs}
+  \begin{itemize}
+  \item When you need debugfs in your build, you need to configure it
+    into your kernel. %% What is the exact option name?
+    \begin{itemize}
+    \item NOTE: this options is automatically selected when you select
+      any option that enables ftrace during kernel configuration. %% What is the exact option name?
+    \item NOTE: Regardless of ftrace, debugfs is usually enabled by
+      default, because many kernel subsystems have come to depend upon
+      it. %% How default is it?
+    \end{itemize}
+  \item When debugfs is configured, the directory
+    \texttt{/sys/kernel/debug} is created. debugfs is usually mounted
+    into this directory.
+  \item This mounting can be done, either by adding a line to the
+    \texttt{/etc/fstab} file, or by using the mount command manually.
+  \item Once this mounting is done, we can interact with ftrace, which
+    stores its files in the \texttt{tracing} directory at the root of
+    debugfs.
   \end{itemize}
 \end{frame}
 
