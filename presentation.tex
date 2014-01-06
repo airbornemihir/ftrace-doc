@@ -68,9 +68,9 @@
 \begin{frame}{Filesystems and debugfs - using debugfs}
   \begin{itemize}
   \item When you need debugfs in your build, you need to configure it
-    into your kernel. %% What is the exact option name?
+    into your kernel, using the configuration option \texttt{CONFIG\_DEBUG\_FS}.
     \begin{itemize}
-    \item NOTE: this options is automatically selected when you select
+    \item NOTE: this option is automatically selected when you select
       any option that enables ftrace during kernel configuration. %% What is the exact option name?
     \item NOTE: Regardless of ftrace, debugfs is usually enabled by
       default, because many kernel subsystems have come to depend upon
@@ -84,6 +84,29 @@
   \item Once this mounting is done, we can interact with ftrace, which
     stores its files in the \texttt{tracing} directory at the root of
     debugfs.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ftrace functionality}
+  \begin{itemize}
+  \item ftrace offers several different tracers:
+    \begin{itemize}
+    \item \texttt{function}
+    \item \texttt{function\_graph}
+    \item \texttt{irqsoff}
+    \item \texttt{preemptoff}
+    \item \texttt{preemptirqsoff}
+    \item \texttt{wakeup}
+    \item \texttt{wakeup\_rt}
+    \item \texttt{nop}
+    \end{itemize}
+  \item Any one of these can be active at a time.
+  \item To change the active tracer, write its name into the file
+    \texttt{tracing/current\_tracer}.
+  \item The tracer \texttt{nop} simply disables all tracers when it is
+    written to \texttt{tracing/current\_tracer}.
+  \item We shall restrict our further discussion to \texttt{function}
+    and \texttt{function\_graph}.
   \end{itemize}
 \end{frame}
 
