@@ -112,14 +112,20 @@
 
 \begin{frame}{ftrace functionality}
   \begin{itemize}
-    %% fix this!
   \item The tracer \texttt{function} traces all kernel
-    functions. Probes functions on their entry.
-    %% fix this!
+    functions. Probes functions on their entry. Configured in by
+    \texttt{CONFIG\_FUNCTION\_TRACER}.
   \item The tracer \texttt{function\_graph} traces all kernel
     functions. Probes functions on their entry as well as on their
-    exit. Optionally, provides a graph of function calls.
-
+    exit. Optionally, provides a graph of function calls. Configured
+    in by \texttt{CONFIG\_FUNCTION\_GRAPH\_TRACER}.
+  \item Both these tracers rely on run-time patching, which is a
+    technique whereby certain parts of the kernel executable are
+    overwritten.
+  \item More specifically, addresses for function calls are
+    overwritten, so that some profiling data can be collected before
+    the actual function is called. 
+  \item This is done only for the selected functions.
   \end{itemize}
 \end{frame}
 
